@@ -1,0 +1,87 @@
+{% extends "base.html" %} {% block content %}
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1 id="header">Search History</h1>
+    <div class="triangle-down"></div>
+    <p style="font-size: 20px">
+      Hi {{ user.username }}! These are your previous inputs.
+    </p>
+    <h2><u>Resale Price Predictor History:</u></h2>
+    {% for ri in user.resaleInput %} {% if ri %}
+    <div><p>Town: {{ ri.town }}</p></div>
+    <div><p>Flat Type: {{ ri.flatType }}</p></div>
+    <div><p>Original Price: {{ ri.ogprice }}</p></div>
+    <div><p>Floor Area: {{ ri.floorArea }}</p></div>
+    <div><p>Storey: {{ ri.storey }}</p></div>
+    <div><p>Remaining Lease: {{ ri.age }}</p></div>
+    <div>
+      <p><b>RESULT: ${{ ri.OUTPUT }}</b></p>
+    </div>
+    <p>
+      <button id="delete">
+        <a
+          class="del"
+          href="{{ url_for('delete',username=current_user.username, id = ri.id) }}"
+          >Delete Entry</a
+        >
+      </button>
+    </p>
+    {% else %}
+    <p>EMPTY</p>
+    {% endif %}
+    <hr />
+    {% endfor %}
+
+    <h2><u>Desired Flat Price Predictor History:</u></h2>
+    {% for ri in user.flatpriceInput %}
+    <div><p>Town: {{ ri.town }}</p></div>
+    <div><p>Flat Type: {{ ri.flatType }}</p></div>
+    <div><p>Floor Area: {{ ri.floorArea }}</p></div>
+    <div><p>Storey: {{ ri.storey }}</p></div>
+    <div><p>Remaining Lease: {{ ri.age }}</p></div>
+    <div>
+      <p><b>RESULT: ${{ ri.OUTPUT }}</b></p>
+    </div>
+    <p>
+      <button id="delete">
+        <a
+          class="del"
+          href="{{ url_for('deletebuyer',username=current_user.username, id = ri.id) }}"
+          >Delete Entry</a
+        >
+      </button>
+    </p>
+    <hr />
+    {% endfor %}
+
+    <h2><u>Town Recommender History:</u></h2>
+    {% for ri in user.townInput %}
+    <div><p>Indicated Budget: S${{ ri.budget }}</p></div>
+    <div><p>Flat Type: {{ ri.flatType }}</p></div>
+    <div><p>Floor Area: {{ ri.floorArea }}</p></div>
+    <div><p>Storey: {{ ri.storey }}</p></div>
+    <div><p>Remaining Lease: {{ ri.age }}</p></div>
+    <div>
+      <p><b>RECOMMENDED TOWN: {{ ri.OUTPUT1 }}</b></p>
+    </div>
+    <p>
+      <button id="delete">
+        <a
+          class="del"
+          href="{{ url_for('deletetown',username=current_user.username, id = ri.id) }}"
+          >Delete Entry</a
+        >
+      </button>
+    </p>
+    <hr />
+    {% endfor %} {% endblock %}
+  </body>
+</html>
