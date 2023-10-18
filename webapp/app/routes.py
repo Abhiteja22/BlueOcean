@@ -111,7 +111,7 @@ def resalepriceestimator(username):
                 'remaining_years': [years],
                 'resale_price': [0]}
         user_df = pd.DataFrame(data)
-        final_df = user_df.append(overall_df)
+        final_df = pd.concat([user_df, overall_df], ignore_index=True)#user_df.append(overall_df)
         final_df.iloc[0]
         # need to encode town, flat_type, and storey_range
         final_df['town'] = final_df['town'].astype('category')
@@ -170,7 +170,7 @@ def flatpriceestimator(username):
                 'remaining_years': [years],
                 'resale_price': [0]}
         user_df = pd.DataFrame(data)
-        final_df = user_df.append(overall_df)
+        final_df = pd.concat([user_df, overall_df], ignore_index=True)#user_df.append(overall_df)
         final_df.iloc[0]
         # need to encode town, flat_type, and storey_range
         final_df['town'] = final_df['town'].astype('category')
@@ -228,7 +228,7 @@ def townrecommender(username):
                 'remaining_years': [years],
                 'resale_price': [price]}
         user_df = pd.DataFrame(data)
-        final_df = user_df.append(overall_df)
+        final_df = pd.concat([user_df, overall_df], ignore_index=True)#user_df.append(overall_df)
         final_df.iloc[0]
         final_df['town'] = final_df['town'].astype('category')
         final_df['town_cat'] = final_df['town'].cat.codes
